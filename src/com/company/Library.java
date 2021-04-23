@@ -1,41 +1,51 @@
-package com.company;
-
-import java.util.Scanner;
+package p1;
 
 public class Library {
-    Book book;
+    private Book[] books;
 
-    static Book b = new Book("Книга жалоб и предложений", "Администрация");
-    static Book b1 = new Book("Гарри Поттер", "Джоан Роулинг");
-    static Book b2 = new Book("Геометрия", "Мерзляк");
-    static Book b3 = new Book("Джава для чайников", "Назар");
-    static Book b4 = new Book("Как держаться на позитиве", "Иванна");
-    static Book b5 = new Book("Кто прочитает,тот Назар", "Царь Даниил II");
-    static Book b6 = new Book("Как править страной", "Баба Зина");
-    static Book b7 = new Book("Как править страной", "Баба Галя");
+    public Library(Book[] books) {
+        this.books = books;
+    }
 
-    static Book[] books = {b, b1, b2, b3, b4, b5, b6, b7};
+    public void printBooks(){
+        printBooks(this.books);
+    }
 
-    public static void getBook() {
-
-        int o = 0;
-        while (o <= 0) {
-            Scanner s = new Scanner(System.in);
-            System.out.println("говорите,если хотите какую-нибудь книгу");
-            String string = s.nextLine();
-            for (int a = 0; a < books.length; a++) {
-                if (string.equals(books[a].getName())) {
-                    System.out.println(books[a].toString());
-                }
-                String stringID = "" + books[a].getID();
-                if (string.equals(stringID)) {
-                    System.out.println(books[a].toString());
-                }
-            }
-            if (string.equals("нет,спасибо")) {
-                System.out.println("приходите еще \uD83D\uDE07");
-                o++;
-            }
+    public void printBooks(Book... books){
+        for (Book book : books) {
+            System.out.println(book);
         }
     }
+
+    public Book findBook(int id){
+        for (Book book : books){
+            if(book.getID() == id){
+                return book;
+            }
+        }
+
+        return null;
+    }
+
+    public Book[] findBook(String title){
+        Book[] result = new Book[books.length];
+        int size = 0;
+        for (Book book : books){
+            if(book.getName().equals(title)){
+                result[size++] = book;
+            }
+        }
+
+        Book[] finalBooks = new Book[size];
+        int i = 0;
+        for (Book book : result){
+            if(book == null){
+                break;
+            }
+            finalBooks[i++] = book;
+        }
+
+        return result;
+    }
 }
+

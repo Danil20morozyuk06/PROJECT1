@@ -1,24 +1,37 @@
-package com.company;
+package p1;
 
-import java.sql.SQLOutput;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
+        Library library = new Library(createBooks());
+        boolean exit = false;
+        while(!exit){
+            System.out.println("Какую книгу вы хотите?");
+            library.printBooks();
+            Scanner scanner = new Scanner(System.in);
+            String answer = scanner.nextLine();
 
-        Library library = new Library();
-
-        Scanner s = new Scanner(System.in);
-        System.out.println("Здраствйте,что вас интересует?");
-        String command = s.nextLine();
-        if (command.equals("Здраствуйте,можно взять книгу?")) {
-            for (int c = 0; c < library.books.length; c++) {
-                System.out.println(library.books[c].getName() + "  ID:" + library.books[c].getID());
+            if(answer.matches("[-+]?\\d+")){
+                library.printBooks(library.findBook(Integer.parseInt(answer)));
+            } else {
+                library.printBooks(library.findBook(answer));
             }
-            library.getBook();
         }
-        System.out.println();
+    }
+
+    public static Book[] createBooks(){
+        Book b = new Book("Книга жалоб и предложений", "Администрация");
+        Book b1 = new Book("Гарри Поттер", "Джоан Роулинг");
+        Book b2 = new Book("Геометрия", "Мерзляк");
+        Book b3 = new Book("Джава для чайников", "Назар");
+        Book b4 = new Book("Как держаться на позитиве", "Иванна");
+        Book b5 = new Book("Кто прочитает,тот Назар", "Царь Даниил II");
+        Book b6 = new Book("Как править страной", "Баба Зина");
+        Book b7 = new Book("Как править страной", "Баба Галя");
+        return new Book[]{b, b1, b2, b3, b4, b5, b6, b7};
     }
 }
+
 
 
